@@ -12,9 +12,8 @@ affiliation:
     address: Department of Statistics, Mimar Sinan Fine Arts University
 primary_colour: "#2f86c5"
 column_numbers: 3
-logoright_name: https&#58;//raw.githubusercontent.com/mertcank1/Python/Python-Dersi/Cost_EU.svg
-logoleft_name:  https&#58;//raw.githubusercontent.com/mertcank1/Python/Python-Dersi/harmony.svg
-
+logoright_name: https&#58;//raw.githubusercontent.com/mertcank1/posterdown/main/poster/Cost_EU.svg
+logoleft_name:  https&#58;//raw.githubusercontent.com/mertcank1/posterdown/main/poster/harmony.svg
 output: 
   posterdown::posterdown_html:
     self_contained: false
