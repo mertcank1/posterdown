@@ -1,81 +1,220 @@
 ---
-title: Generate Reproducible & Live HTML and PDF Conference Posters Using RMarkdown
+title: $CRISPR:$ Prediction of Off-Target Levels by Using Latent Class Analysis and Bayesian Latent Class Analysis
+poster_height: "43.31in"
+poster_width: "51.18in"
 author:
-  - name: Brent Thorne
-    affil: 1
-    orcid: '0000-0002-1099-3857'
-  - name: Another G. Author
-    affil: 2
+  - name: Ali Mertcan Köse
+    affil:  "1,2"
 affiliation:
   - num: 1
-    address: Department of Earth Science, Brock University
+    address: Department of Computer Programming, Istanbul Ticaret University 
   - num: 2
-    address: Department of Graphics and Layouts, University of Posters; Canada
+    address: Department of Statistics, Mimar Sinan Fine Arts University
+primary_colour: "#2f86c5"
 column_numbers: 3
-logoright_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
-logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+logoright_name: https&#58;//raw.githubusercontent.com/mertcank1/Python/Python-Dersi/Cost_EU.svg
+logoleft_name:  https&#58;//raw.githubusercontent.com/mertcank1/Python/Python-Dersi/harmony.svg
+
 output: 
   posterdown::posterdown_html:
     self_contained: false
 bibliography: packages.bib
 ---
+```{css, echo=FALSE}
+div.logo_left{
+  width: 30%;
+}
+div.poster_title{
+  width: 50%;
+}
+div.logo_right{
+  width: 20%;
+}
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(kableExtra)
+library(knitr)
+library(icons)
+library(rsvg)
 ```
 
 # Introduction
 
-Welcome to `posterdown` ! This is my attempt to provide a semi-smooth workflow for those who wish to take their R Markdown skills to the conference world. Most features from R Markdown are available in this package such as Markdown section notation, figure captioning, and even citations like this one [@R-rmarkdown]. The rest of this example poster will show how you can insert typical conference poster features into your own document. 
+Recently, CRISPR (Clustered Regularly Interspaced Short Palindromic Repeats) is one of the most popular applications in the field of biology. CRISPR is a system that enhances the immune system against viral diseases and infections. In the target sequence (DNA), which is separated into specific clusters, off-target and on-target positions are determined by the matching between DNA and guide RNA. The spread and occurrence of viral diseases and infections are prevented by modifying the off-target bases (nucleotides). Off-target and on-target positions are evaluated based only on two categories with CFD/MIT scores. Instead of two classes, this study focuses on off-target positions. 
 
-## Objectives
+## **Objectives**
 
-1. Easy to use reproducible poster design. 
-2. Integration with R Markdown.
-3. Easy transition from `posterdown` to `pagedown` report or manuscript documents [@R-pagedown].
+1. to identify the levels of off-target by using the latent class analysis.
+
+2. According to the number of classes (Specification of Priors ), Bayesian Latent Class Analysis can be a more robust approach to predict the off-target levels.
+
+3. to specify the off-target position in the genome for CRISPR.
 
 # Methods
 
-This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown > Knitr > Markdown > Pandoc > HTML/CSS > PDF. You can even use the bibliography the same way [@R-posterdown].
+The main objective of latent class analysis (LCA) is to categorize individuals into groups within different populations exposed to a specific disease, based on their characteristics in public health and medicine. LCA is a method used to analyze the relationship between categorical variables measured at nominal and ordinal variables. In LCA, the maximum likelihood (ML) estimation method achieves the best solution by using the Expectation-Maximization (E-M) algorithm. Conversely, as an alternative to the ML method, the Bayesian estimation method is also utilized to estimate unknown parameters in latent class models through the Markov Chain Monte Carlo (MCMC) method. 
+
+The dataset of the study was obtained from the CRISPOR database (http://crispor.tefor.net/). The analysis was conducted using a sample size of 5132, which included target sequences and gRNAs matching positions based on 23 bases. First of all, the matching of DNA and gRNA was encoded using binary (0/1) coding and multi (4x4 = 16) coding, considering that the combination of two bases in the same positions constitutes a variable. Subsequently, latent class analysis was applied separately for each encoding system. Bayesian latent class analysis was conducted, with the number of classes determined by the latent class analysis application. 
 
 # Results
 
-Usually you want to have a nice table displaying some important results that you have calculated. In `posterdown` this is as easy as using the `kable` table formatting you are probably use to as per typical R Markdown formatting.
-
-You can reference tables like so: Table \@ref(tab:mytable). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat augue at velit tincidunt semper. Donec elementum porta posuere. Nullam interdum, odio at tincidunt feugiat, turpis nisi blandit eros, eu posuere risus felis non quam. Nam eget lorem odio. Duis et aliquet orci. Phasellus nec viverra est.
+In binary and multi-category datasets, Lo-Mendel-Rubin (LMR) test results were found statistically significant for each latent class (p < 0.001). According to the Bayesian Information Criteria and the Consistent Akaike Information Criteria, the latent models were well-fitted to four classes for binary category datasets and three classes for multi-category datasets. Because the entropy values were higher than 0.60, the three and four latent class models were distinctly and deterministically classified. After determining class numbers, latent class models were estimated using the Bayesian approach with binary and multi-category datasets.
 
 ```{r mytable, out.width='80%'}
-knitr::kable(iris[1:10, 1:4], caption = 'Table caption.',align = 'c',"html")
+Class<-c(2,3,4,5,6)
+
+Parameters<-c(47,71,95,119,143)
+
+Log_likelihood<-c(-50887.6,-50737.1,-50606.2,-50520.1,-50452.2)
+
+AIC<-c(101869.2,101616.1,101402.4, 101278.1,101190.4)
+
+BIC<-c(102176.8, 102080.7, 102024.0, 102056.8, 102126.1)
+                    
+SSABIC<-c(102027.4, 101855.1, 101722.1, 101678.6,101671.7)
+
+CAIC<-c(102223.8,102151.7,102119.0, 102175.8, 102269.1)                  
+
+AWE<-c(102719.3, 102900.3, 103120.6, 103430.4, 103776.8)                
+
+LMR_Test<-c("<0.001","<0.001","<0.001","<0.001","<0.7167")
+
+Entropy<-c(1.000,0.998,0.998,0.969,0.787)                 
+
+CR<-cbind(Class,Log_likelihood,AIC,BIC,SSABIC,CAIC,AWE,LMR_Test,Entropy)
+
+colnames(CR)<-c("Class","Log-Likelihood","AIC","BIC","SSABIC","CAIC","AWE","LMR Test","Entropy")
+
+cr<-as.data.frame(CR)
+
+knitr::kable(cr, caption = 'Latent class analysis results for observed variables with binary-categories.',align = 'c',"html",escape = T) %>% row_spec(0,bold = T)%>%
+   kable_styling(latex_options = c('striped', 'hold_position')) %>%
+  kable_classic(full_width = F, html_font = "Cambria")%>%
+  footnote(general = "AIC: Akaike Information Criterion, BIC: Bayesian Information Criterion,SSABIC:Sample Size Adjusted Bayesian Information Criterion, CAIC: Consistent Akaike
+Information Criterion, AWE:Approximate Weight of evidence Criterion, LMR Test: Lo-Mendel-Rubin Test ",general_title = "")
 ```
 
-Or with figures: Figure \@ref(fig:standard-plot), or Figure \@ref(fig:morefigs).
 
-```{r standard-plot, out.width='80%', fig.align='center', fig.cap='Great figure!', fig.height=5}
-plot(mtcars[1:2])
+
+```{r bin, out.width='80%', fig.align='center', fig.cap='Latent Class Probabilities(Binary-Encoding)', fig.height=5}
+include_graphics('https://github.com/mertcank1/posterdown/blob/main/poster/ms_2.jpg?raw=true', dpi = NA)
 ```
 
-```{r morefigs, out.width='80%', echo=TRUE, fig.cap='Amazing, right?!', fig.height=5}
-data <- iris
+```{r mytable2, out.width='80%'}
+ClassM<-c(2,3,4,5,6)
 
-plot(x = data$Sepal.Length, 
-     y = data$Sepal.Width, 
-     col = data$Species,
-     pch = 19, 
-     xlab = "Sepal Length (cm)",
-     ylab = "Sepal Width (cm)")
+ParametersM<-c(495,743,991,1239,1487)
 
+Log_likelihoodM<-c(-102166.52,-101010.36,-100042.46,-99067.84,-98347.50)
+
+AICM<-c(205323.0,203506.7,202066.9, 200613.7,199669.0)
+
+BICM<-c(208561.9, 208368.4, 208551.3, 208720.8,209398.8)
+                    
+SSABICM<-c(206989.0, 206007.4, 205402.2, 204783.6,204673.6)
+
+CAICM<-c(209056.9,209111.4,209542.3,209959.8,210885.8)                  
+
+AWEM<-c(214275.8, 216945.0,219990.6,223022.9,226563.6 )                
+
+LMR_TestM<-c("<0.001","<0.001","<0.001","<0.001","<0.001")
+
+EntropyM<-c(0.719,0.791,0.819,0.861,0.870)                 
+
+CRM<-cbind(ClassM,Log_likelihoodM,AICM,BICM,SSABICM,CAICM,AWEM,LMR_TestM,EntropyM)
+
+colnames(CRM)<-c("Class","Log-Likelihood","AIC","BIC","SSABIC","CAIC","AWE","LMR Test","Entropy")
+
+crM<-as.data.frame(CRM)
+
+knitr::kable(crM, caption = 'Latent class analysis results for observed variables with Multi-categories.',align = 'c',"html",escape = T) %>% row_spec(0,bold = T)%>%
+   kable_styling(latex_options = c('striped', 'hold_position')) %>%
+  kable_classic(full_width = F, html_font = "Cambria")
 ```
 
-# Next Steps
 
-Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus [@R-posterdown].
+```{r multi, out.width='80%', fig.align='center', fig.cap='Latent Class Probabilities(Multi-Encoding)', fig.height=5}
 
+library(knitr)
+include_graphics('https://github.com/mertcank1/posterdown/blob/main/poster/ms_4.jpg?raw=true', dpi = NA)
+```
+
+
+```{r mytable3, out.width='80%'}
+Class<-c(1,2,3,4)
+
+Median<-c(0.741,0.044,0.236,0.015)
+
+Mean<-c(0.727,0.037,0.223,0.011)
+
+Sd<-c(0.0071,0.0033,0.006,0.0020)
+
+SSeff<-c(7614,5133,8125,3699)
+
+BLCA<-cbind(Class,Median, Mean,Sd,SSeff)
+
+colnames(BLCA)<-c("Class","Median", "Mean","SD","SSeff")
+
+blca<-as.data.frame(BLCA)
+
+knitr::kable(blca, caption = 'Bayesian Latent class analysis results for observed variables with Binary-categories.',align = 'c',"html",escape = T) %>% row_spec(0,bold = T)%>%
+   kable_styling(latex_options = c('striped', 'hold_position')) %>% 
+      column_spec(1,width = "5in") %>%
+      column_spec(2,width = "5in") %>%
+      column_spec(3,width = "5in") %>%
+      column_spec(4,width = "5in")%>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
+
+
+```{r mytable4, out.width='80%'}
+Classs<-c(1,2,3)
+
+Medians<-c(0.346,0.046,0.607)
+
+Means<-c(0.346,0.046,0.607)
+
+Sds<-c(0.0066,0.0029,0.0068)
+
+SSeffs<-c(37485,40000,40000)
+
+BLCAs<-cbind(Classs,Medians, Means,Sds,SSeffs)
+
+colnames(BLCAs)<-c("Class","Median", "Mean","SD","SSeff")
+
+blcas<-as.data.frame(BLCAs)
+
+knitr::kable(blcas, caption = 'Bayesian Latent class analysis results for observed variables with Multi-categories.',align = 'c',"html",escape = T) %>% row_spec(0,bold = T)%>%
+   kable_styling(latex_options = c('striped', 'hold_position')) %>% 
+      column_spec(1,width = "5in") %>%
+      column_spec(2,width = "5in") %>%
+      column_spec(3,width = "5in") %>%
+      column_spec(4,width = "5in")%>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
 # Conclusion
 
-Try `posterdown` out! Hopefully you like it!
+Making too many changes to the bases in the DNA sequence can lead to a higher chance of developing another disease or weakening the immune system. This study systematically tested the impact of mismatches between the target sequence and guide RNA, laying the groundwork for minimizing base changes at each position. In the next stage, machine learning and deep learning algorithms may be used to predict the locations of multi-categorical off-target levels.In the next stage, machine learning and deep learning algorithms may be used to predict the locations of multi-categorical off-target levels.
 
 ```{r, include=FALSE}
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
 
+# Acknowledgement
+
+`r shiny::icon("envelope")` $\tt{alimertcankose@gmail.com}$
+
+`r shiny::icon("globe")` http://alimertcankose.netlify.com/
+
+`r shiny::icon("orcid")`   https://orcid.org/0000-0002-5464-9441
+
+`r shiny::icon("github")` https://github.com/mertcank1
+
+
+
 # References
+
+
+
