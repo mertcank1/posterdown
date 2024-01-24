@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!--
+Font-awesome icons ie github or twitter
+-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/brands.css" integrity="sha384-n9+6/aSqa9lBidZMRCQHTHKJscPq6NW4pCQBiMmHdUCvPN8ZOg2zJJTkC7WIezWv" crossorigin="anonymous">
+
+<!--
+Google fonts api stuff
+-->
+
+
+
+<title>CRISPR: Prediction of Off-Target Levels by Using Latent Class Analysis and Bayesian Latent Class Analysis</title>
+
+
+<script src="poster_files/kePrint-0.0.1/kePrint.js"></script>
+<link href="poster_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="poster_files/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="poster_files/bsTable-3.3.7/bootstrapTable.js"></script>
+<link href="poster_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="poster_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+
+
+
+<style>
+@page {
+size: 51.18in 43.31in;
+margin: 0;
+padding: 0;
+}
+body {
+margin: 0;
+font-size: 45px;
+width: 51.18in;
+height: 43.31in;
+padding: 0;
+text-align: justify;
+font-family: Palatino;
+}
+.poster_wrap {
+width: 51.18in;
+height: 43.31in;
+padding: 0cm;
+}
+.title_container {
+width: 51.18in;
+height: calc(43.31in * 0.15);
+overflow: hidden;
+background-color: #2f86c5;
+border: 0 solid #0b4545;
+}
+.logo_left {
+float: left;
+width: 10%;
+height: 100%;
+background-color: #2f86c5;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.logo_right {
+float: right;
+width: 10%;
+height: 100%;
+background-color: #2f86c5;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.poster_title {
+text-align: center;
+position: relative;
+float: left;
+width: 80%;
+height: 100%;
+color: #FFFFFF;
+top: 50%;
+transform: translateY(-50%);
+-webkit-transform: translateY(-50%);
+}
+#title {
+font-family: Palatino;
+}
+/* unvisited link */
+a:link {
+color: #cc0000;
+}
+.mybreak {
+  break-before: column;
+}
+/* visited link */
+a:visited {
+color: #cc0000;
+}
+
+/* mouse over link */
+a:hover {
+color: #cc0000;
+}
+
+/* selected link */
+a:active {
+color: #cc0000;
+}
+.poster_body {
+-webkit-column-count: 3; /* Chrome, Safari, Opera */
+-moz-column-count: 3; /* Firefox */
+column-count: 3;
+-webkit-column-fill: auto;
+-moz-column-fill: auto;
+column-fill: auto;
+-webkit-column-rule-width: 1mm;
+-moz-column-rule-width: 1mm;
+column-rule-width: 1mm;
+-webkit-column-rule-style: dashed;
+-moz-column-rule-style: dashed;
+column-rule-style: dashed;
+-webkit-column-rule-color: #2f86c5;
+-moz-column-rule-color: #2f86c5;
+column-rule-color: #2f86c5;
+column-gap: 1em;
+padding-left: 0.5em;
+padding-right: 0.5em;
+height: 100%;
+color: #000000
+background-color: #ffffff;
+}
+.poster_title h1 {
+font-size: 75pt;
+margin: 0;
+border: 0;
+font-weight: normal;
+}
+.poster_body_wrap{
+width: calc(51.18in + 0 + 0);
+height: calc(43.31in * 0.83);
+padding-top: calc(43.31in * 0.005);
+padding-bottom: calc(43.31in * 0.01);
+background-color: #ffffff;
+}
+.poster_title h3 {
+color: #ffffff;
+font-size: 50pt;
+margin: 0;
+border: 0;
+font-weight: normal;
+}
+.poster_title h3 > sup {
+  font-size: 35pt;
+  margin-left: 0.02em;
+}
+.poster_title h5 {
+color: #FFFFFF;
+font-size: 35pt;
+margin: 0;
+border: 0;
+font-weight: normal;
+}
+img {
+margin-top: 2cm;
+margin-bottom: 0;
+}
+.section {
+  padding: 0.2em;
+}
+.poster_body h1 {
+text-align: center;
+color: #FFFFFF;
+font-size: 65pt;
+border: 2mm solid #2f86c5;
+background-color: #2f86c5;
+border-radius: 4mm 0mm;
+margin-top: 2mm;
+margin-bottom: 2mm;
+font-weight: normal;
+}
+.poster_body h2 {
+color: #000000;
+font-size: 40pt;
+padding-left: 4mm;
+font-weight: normal;
+}
+.span {
+width: 200%;
+}
+/* center align leaflet map,
+from https://stackoverflow.com/questions/52112119/center-leaflet-in-a-rmarkdown-document */
+.html-widget {
+margin: auto;
+position: sticky;
+margin-top: 2cm;
+margin-bottom: 2cm;
+}
+.leaflet.html-widget.html-widget-static-bound.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+position: sticky;
+width: 100%;
+}
+pre.sourceCode.r {
+background-color: #dddddd40;
+border-radius: 4mm;
+padding: 4mm;
+width: 75%;
+/* align-items: center; */
+margin: auto;
+padding-left: 2cm;
+}
+code.sourceCode.r{
+background-color: transparent;
+font-size: 20pt;
+border-radius: 2mm;
+}
+.caption {
+font-size: 25pt;
+}
+.table caption {
+font-size: 25pt;
+padding-bottom: 3mm;
+
+}
+code {
+font-size: 1em;
+font-family: monospace;
+background-color: #00808024;
+color: #2f86c5;
+padding: 1.2mm;
+border-radius: 2mm;
+}
+.poster_title code {
+font-size: 1em;
+}
+table {
+font-size: 40px;
+margin: auto;
+border-top: 3px solid #666;
+border-bottom: 3px solid #666;
+}
+table thead th {
+border-bottom: 3px solid #ddd;
+}
+td {
+padding: 8px;
+}
+th {
+padding: 15px;
+}
+caption {
+margin-bottom: 10px;
+}
+.poster_body p {
+margin-right: 4mm;
+margin-left: 4mm;
+margin-top: 6mm;
+margin-bottom: 10mm;
+}
+.poster_body ol {
+margin-right: 4mm;
+margin-left: 4mm;
+}
+#ul {
+margin-right: 4mm;
+margin-left: 4mm;
+}
+.references p {
+font-size: 20pt;
+}
+.orcid img {
+  width: 1em;
+}
+</style>
+</head>
+<body>
+
+
+<div class="poster_wrap">
+<div class="title_container">
+<!-- Left Logo  -->
+<div class="logo_left">
+<img src= 'https://raw.githubusercontent.com/mertcank1/posterdown/main/poster/harmony.svg' style="width: 80%">
+</div>
+<!-- Poster Title -->
+<div class= "poster_title">
+<h1 id="title"><span class="math inline">\(CRISPR:\)</span> Prediction of Off-Target Levels by Using Latent Class Analysis and Bayesian Latent Class Analysis</h1>
+<h3 id="author">Ali Mertcan Köse<sup>1,2</sup></h3><br>
+<h5 id="affiliation"><sup>1</sup> Department of Computer Programming, Istanbul Ticaret University<br> <sup>2</sup> Department of Statistics, Mimar Sinan Fine Arts University</h5>
+</div>
+<!-- Right Logo  -->
+<div class="logo_right">
+<img src=https://raw.githubusercontent.com/mertcank1/posterdown/main/poster/Cost_EU.svg style="width: 80%">
+</div>
+</div>
+
+<div class='poster_body_wrap'>
+<div class='poster_body'>
+<style>
+p.caption {
+ margin-top: 0;
+ margin-bottom: 0;
+}
+</style>
+<style type="text/css">
+div.logo_left{
+  width: 30%;
+}
+div.poster_title{
+  width: 50%;
+}
+div.logo_right{
+  width: 20%;
+}
+</style>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Recently, CRISPR (Clustered Regularly Interspaced Short Palindromic Repeats) is one of the most popular applications in the field of biology. CRISPR is a system that enhances the immune system against viral diseases and infections. In the target sequence (DNA), which is separated into specific clusters, off-target and on-target positions are determined by the matching between DNA and guide RNA. The spread and occurrence of viral diseases and infections are prevented by modifying the off-target bases (nucleotides). Off-target and on-target positions are evaluated based only on two categories with CFD/MIT scores. Instead of two classes, this study focuses on off-target positions<span class="citation">(<a href="#ref-Chen:2018">Chen, 2018</a>; <a href="#ref-Ishino:2018">Ishino, 2018</a>)</span>.</p>
+<div id="objectives" class="section level2">
+<h2><strong>Objectives</strong></h2>
+<ol style="list-style-type: decimal">
+<li>to identify the levels of off-target by using the latent class analysis.</li>
+<li>According to the number of classes (Specification of Priors ), Bayesian Latent Class Analysis can be a more robust approach to predict the off-target levels.</li>
+<li>to specify the off-target position in the genome for CRISPR.</li>
+</ol>
+</div>
+</div>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
+<p>The dataset of the study was obtained from the CRISPOR database (<a href="http://crispor.tefor.net/" class="uri">http://crispor.tefor.net/</a>). The analysis was conducted using a sample size of 5132, which included target sequences and gRNAs matching positions based on 23 bases. First of all, the matching of DNA and gRNA was encoded using binary (0/1) coding and multi (4x4 = 16) coding, considering that the combination of two bases in the same positions constitutes a variable. Subsequently, latent class analysis was applied separately for each encoding system. Bayesian latent class analysis was conducted, with the number of classes determined by the latent class analysis application.</p>
+<p>The main objective of latent class analysis (LCA) is to categorize individuals into groups within different populations exposed to a specific disease, based on their characteristics in public health and medicine. LCA is a method used to analyze the relationship between categorical variables measured at nominal and ordinal variables<span class="citation">(<a href="#ref-Chung:2008">Chung, 2008</a>)</span>. In LCA, the maximum likelihood (ML) estimation method achieves the best solution by using the Expectation-Maximization (E-M) algorithm. Conversely, as an alternative to the ML method, the Bayesian estimation method is also utilized to estimate unknown parameters in latent class models through the Markov Chain Monte Carlo (MCMC) method <span class="citation">Qui (<a href="#ref-Qui:2022">2022</a>)</span>.</p>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<p><font size="9">
+In binary and multi-category datasets, Lo-Mendel-Rubin (LMR) test results were found statistically significant for each latent class (p &lt; 0.001). According to the Bayesian Information Criteria and the Consistent Akaike Information Criteria, the latent models were well-fitted to four classes for binary category datasets in Table <a href="#tab:mytable">1</a> and three classes for multi-category datasets in Table <a href="#tab:mytable2">2</a>. </font></p>
+<table class="table lightable-classic" style="margin-left: auto; margin-right: auto; font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:mytable">Table 1: </span>Latent class analysis results for observed variables with binary-categories.
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;font-weight: bold;">
+Class
+</th>
+<th style="text-align:center;font-weight: bold;">
+Log-Likelihood
+</th>
+<th style="text-align:center;font-weight: bold;">
+AIC
+</th>
+<th style="text-align:center;font-weight: bold;">
+BIC
+</th>
+<th style="text-align:center;font-weight: bold;">
+SSABIC
+</th>
+<th style="text-align:center;font-weight: bold;">
+CAIC
+</th>
+<th style="text-align:center;font-weight: bold;">
+AWE
+</th>
+<th style="text-align:center;font-weight: bold;">
+LMR Test
+</th>
+<th style="text-align:center;font-weight: bold;">
+Entropy
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+-50887.6
+</td>
+<td style="text-align:center;">
+101869.2
+</td>
+<td style="text-align:center;">
+102176.8
+</td>
+<td style="text-align:center;">
+102027.4
+</td>
+<td style="text-align:center;">
+102223.8
+</td>
+<td style="text-align:center;">
+102719.3
+</td>
+<td style="text-align:center;">
+&lt;0.001
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+-50737.1
+</td>
+<td style="text-align:center;">
+101616.1
+</td>
+<td style="text-align:center;">
+102080.7
+</td>
+<td style="text-align:center;">
+101855.1
+</td>
+<td style="text-align:center;">
+102151.7
+</td>
+<td style="text-align:center;">
+102900.3
+</td>
+<td style="text-align:center;">
+&lt;0.001
+</td>
+<td style="text-align:center;">
+0.998
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+4
+</td>
+<td style="text-align:center;font-weight: bold;">
+-50606.2
+</td>
+<td style="text-align:center;font-weight: bold;">
+101402.4
+</td>
+<td style="text-align:center;font-weight: bold;">
+102024
+</td>
+<td style="text-align:center;font-weight: bold;">
+101722.1
+</td>
+<td style="text-align:center;font-weight: bold;">
+102119
+</td>
+<td style="text-align:center;font-weight: bold;">
+103120.6
+</td>
+<td style="text-align:center;font-weight: bold;">
+&lt;0.001
+</td>
+<td style="text-align:center;font-weight: bold;">
+0.998
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+-50520.1
+</td>
+<td style="text-align:center;">
+101278.1
+</td>
+<td style="text-align:center;">
+102056.8
+</td>
+<td style="text-align:center;">
+101678.6
+</td>
+<td style="text-align:center;">
+102175.8
+</td>
+<td style="text-align:center;">
+103430.4
+</td>
+<td style="text-align:center;">
+&lt;0.001
+</td>
+<td style="text-align:center;">
+0.969
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+-50452.2
+</td>
+<td style="text-align:center;">
+101190.4
+</td>
+<td style="text-align:center;">
+102126.1
+</td>
+<td style="text-align:center;">
+101671.7
+</td>
+<td style="text-align:center;">
+102269.1
+</td>
+<td style="text-align:center;">
+103776.8
+</td>
+<td style="text-align:center;">
+&lt;0.7167
+</td>
+<td style="text-align:center;">
+0.787
+</td>
+</tr>
+</tbody>
+</table>
+<p>The entropy values were higher than 0.60, the three and four latent class models were distinctly and deterministically classified. Class probabilities were shown in Figure <a href="#fig:bin">1</a> and Figure <a href="#fig:multi">2</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:bin"></span>
+<img src="https://github.com/mertcank1/posterdown/blob/main/poster/ms_2.jpg?raw=true" alt="Latent Class Probabilities(Binary-Encoding)" width="80%" />
+<p class="caption">
+Figure 1: Latent Class Probabilities(Binary-Encoding)
+</p>
+</div>
+<table class="table lightable-classic" style="margin-left: auto; margin-right: auto; font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>
+<span id="tab:mytable2">Table 2: </span>Latent class analysis results for observed variables with Multi-categories.
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;font-weight: bold;">
+Class
+</th>
+<th style="text-align:center;font-weight: bold;">
+Log-Likelihood
+</th>
+<th style="text-align:center;font-weight: bold;">
+AIC
+</th>
+<th style="text-align:center;font-weight: bold;">
+BIC
+</th>
+<th style="text-align:center;font-weight: bold;">
+SSABIC
+</th>
+<th style="text-align:center;font-weight: bold;">
+CAIC
+</th>
+<th style="text-align:center;font-weight: bold;">
+AWE
+</th>
+<th style="text-align:center;font-weight: bold;">
+LMR Test
+</th>
+<th style="text-align:center;font-weight: bold;">
+Entropy
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+-102166.52
+</td>
+<td style="text-align:center;">
+205323
+</td>
+<td style="text-align:center;">
+208561.9
+</td>
+<td style="text-align:center;">
+206989
+</td>
+<td style="text-align:center;">
+209056.9
+</td>
+<td style="text-align:center;">
+214275.8
+</td>
+<td style="text-align:center;">
+&lt;0.001
+</td>
+<td style="text-align:center;">
+0.719
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+3
+</td>
+<td style="text-align:center;font-weight: bold;">
+-101010.36
+</td>
+<td style="text-align:center;font-weight: bold;">
+203506.7
+</td>
+<td style="text-align:center;font-weight: bold;">
+208368.4
+</td>
+<td style="text-align:center;font-weight: bold;">
+206007.4
+</td>
+<td style="text-align:center;font-weight: bold;">
+209111.4
+</td>
+<td style="text-align:center;font-weight: bold;">
+216945
+</td>
+<td style="text-align:center;font-weight: bold;">
+&lt;0.001
+</td>
+<td style="text-align:center;font-weight: bold;">
+0.791
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+-100042.46
+</td>
+<td style="text-align:center;">
+202066.9
+</td>
+<td style="text-align:center;">
+208551.3
+</td>
+<td style="text-align:center;">
+205402.2
+</td>
+<td style="text-align:center;">
+209542.3
+</td>
+<td style="text-align:center;">
+219990.6
+</td>
+<td style="text-align:center;">
+&lt;0.001
+</td>
+<td style="text-align:center;">
+0.819
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+-99067.84
+</td>
+<td style="text-align:center;">
+200613.7
+</td>
+<td style="text-align:center;">
+208720.8
+</td>
+<td style="text-align:center;">
+204783.6
+</td>
+<td style="text-align:center;">
+209959.8
+</td>
+<td style="text-align:center;">
+223022.9
+</td>
+<td style="text-align:center;">
+&lt;0.001
+</td>
+<td style="text-align:center;">
+0.861
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+-98347.5
+</td>
+<td style="text-align:center;">
+199669
+</td>
+<td style="text-align:center;">
+209398.8
+</td>
+<td style="text-align:center;">
+204673.6
+</td>
+<td style="text-align:center;">
+210885.8
+</td>
+<td style="text-align:center;">
+226563.6
+</td>
+<td style="text-align:center;">
+&lt;0.001
+</td>
+<td style="text-align:center;">
+0.87
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> AIC: Akaike Information Criterion, BIC: Bayesian Information Criterion,SSABIC:Sample Size Adjusted Bayesian Information Criterion, CAIC: Consistent Akaike<br>Information Criterion, AWE:Approximate Weight of evidence Criterion, LMR Test: Lo-Mendel-Rubin Test
+</td>
+</tr>
+</tfoot>
+</table>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:multi"></span>
+<img src="https://github.com/mertcank1/posterdown/blob/main/poster/ms_4.jpg?raw=true" alt="Latent Class Probabilities(Multi-Encoding)" width="80%" />
+<p class="caption">
+Figure 2: Latent Class Probabilities(Multi-Encoding)
+</p>
+</div>
+<p>After determining class numbers, latent class models were estimated using the Bayesian approach with binary in Table <a href="#tab:mytable3">3</a> and multi-category datasets in Table <a href="#tab:mytable4">4</a>.</p>
+<table class="table lightable-classic" style="margin-left: auto; margin-right: auto; font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:mytable3">Table 3: </span>Bayesian Latent class analysis results for observed variables with Binary-categories.
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;font-weight: bold;">
+Class
+</th>
+<th style="text-align:center;font-weight: bold;">
+Median
+</th>
+<th style="text-align:center;font-weight: bold;">
+Mean
+</th>
+<th style="text-align:center;font-weight: bold;">
+SD
+</th>
+<th style="text-align:center;font-weight: bold;">
+SSeff
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;width: 5in; ">
+1
+</td>
+<td style="text-align:center;width: 5in; ">
+0.741
+</td>
+<td style="text-align:center;width: 5in; ">
+0.727
+</td>
+<td style="text-align:center;width: 5in; ">
+0.0071
+</td>
+<td style="text-align:center;">
+7614
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 5in; ">
+2
+</td>
+<td style="text-align:center;width: 5in; ">
+0.044
+</td>
+<td style="text-align:center;width: 5in; ">
+0.037
+</td>
+<td style="text-align:center;width: 5in; ">
+0.0033
+</td>
+<td style="text-align:center;">
+5133
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 5in; ">
+3
+</td>
+<td style="text-align:center;width: 5in; ">
+0.236
+</td>
+<td style="text-align:center;width: 5in; ">
+0.223
+</td>
+<td style="text-align:center;width: 5in; ">
+0.0060
+</td>
+<td style="text-align:center;">
+8125
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 5in; ">
+4
+</td>
+<td style="text-align:center;width: 5in; ">
+0.015
+</td>
+<td style="text-align:center;width: 5in; ">
+0.011
+</td>
+<td style="text-align:center;width: 5in; ">
+0.0020
+</td>
+<td style="text-align:center;">
+3699
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table lightable-classic" style="margin-left: auto; margin-right: auto; font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:mytable4">Table 4: </span>Bayesian Latent class analysis results for observed variables with Multi-categories.
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;font-weight: bold;">
+Class
+</th>
+<th style="text-align:center;font-weight: bold;">
+Median
+</th>
+<th style="text-align:center;font-weight: bold;">
+Mean
+</th>
+<th style="text-align:center;font-weight: bold;">
+SD
+</th>
+<th style="text-align:center;font-weight: bold;">
+SSeff
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;width: 5in; ">
+1
+</td>
+<td style="text-align:center;width: 5in; ">
+0.346
+</td>
+<td style="text-align:center;width: 5in; ">
+0.346
+</td>
+<td style="text-align:center;width: 5in; ">
+0.0066
+</td>
+<td style="text-align:center;">
+37485
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 5in; ">
+2
+</td>
+<td style="text-align:center;width: 5in; ">
+0.046
+</td>
+<td style="text-align:center;width: 5in; ">
+0.046
+</td>
+<td style="text-align:center;width: 5in; ">
+0.0029
+</td>
+<td style="text-align:center;">
+40000
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 5in; ">
+3
+</td>
+<td style="text-align:center;width: 5in; ">
+0.607
+</td>
+<td style="text-align:center;width: 5in; ">
+0.607
+</td>
+<td style="text-align:center;width: 5in; ">
+0.0068
+</td>
+<td style="text-align:center;">
+40000
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Making too many changes to the bases in the DNA sequence can lead to a higher chance of developing another disease or weakening the immune system. This study systematically tested the impact of mismatches between the target sequence and guide RNA, laying the groundwork for minimizing base changes at each position. In the next stage, machine learning and deep learning algorithms may be used to predict the locations of multi-categorical off-target levels.In the next stage, machine learning and deep learning algorithms may be used to predict the locations of multi-categorical off-target levels.</p>
+</div>
+<div id="acknowledgement" class="section level1">
+<h1>Acknowledgement</h1>
+<p>I would like to thank The Cost Action CA18208, which gave chance to attend workshops and the project about Bayesian Latent Class Models. I overcame the difficulties more easily in my research through workshops and materials.</p>
+<p><i class="far fa-envelope" role="presentation" aria-label="envelope icon"></i> <span class="math inline">\(\tt{alimertcankose@gmail.com}\)</span></p>
+<p><i class="fas fa-globe" role="presentation" aria-label="globe icon"></i> <a href="http://alimertcankose.netlify.com/" class="uri">http://alimertcankose.netlify.com/</a></p>
+<p><i class="fab fa-orcid" role="presentation" aria-label="orcid icon"></i> <a href="https://orcid.org/0000-0002-5464-9441" class="uri">https://orcid.org/0000-0002-5464-9441</a></p>
+<p><i class="fab fa-github" role="presentation" aria-label="github icon"></i> <a href="https://github.com/mertcank1" class="uri">https://github.com/mertcank1</a></p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-Chen:2018" class="csl-entry">
+Chen, Z., Y. (2018). Application of the CRISPR/Cas9 system to drug resistance in breast cancer. <em>Advanced Science</em>, <em>5</em>(6), 1–13. <a href="https://doi.org/10.1002/advs.201700964">https://doi.org/10.1002/advs.201700964</a>
+</div>
+<div id="ref-Chung:2008" class="csl-entry">
+Chung, H. (2008). Latent class models. In M. L. A. Boslaugh In S. (Ed.), <em>Encyclopedia of epidemiology</em> (pp. 584–586). SAGE.
+</div>
+<div id="ref-Ishino:2018" class="csl-entry">
+Ishino, K., Y. (2018). History of CRISPR-cas from encounter with a mysterious. <em>Journal of Bacteriology</em>, <em>200</em>(7), 1–17. <a href="https://doi.org/10.1128/JB.00580-17">https://doi.org/10.1128/JB.00580-17</a>
+</div>
+<div id="ref-Qui:2022" class="csl-entry">
+Qui, M. (2022). A tutorial on bayesian latent class analysis using JAGS. <em>Journal of Behavioral Data Science</em>, <em>2</em>(2), 127–155. <a href="https://doi.org/10.35566/jbds/v2n2/qiu">https://doi.org/10.35566/jbds/v2n2/qiu</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+var script = document.createElement("script");
+script.type = "text/javascript";
+var src = "true";
+if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+if (location.protocol !== "file:" && /^https?:/.test(src))
+src = src.replace(/^https?:/, '');
+script.src = src;
+document.getElementsByTagName("head")[0].appendChild(script);
+})();
+</script>
+
+
+</body>
+</html>

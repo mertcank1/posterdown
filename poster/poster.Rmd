@@ -14,11 +14,22 @@ primary_colour: "#2f86c5"
 column_numbers: 3
 logoright_name: https&#58;//raw.githubusercontent.com/mertcank1/posterdown/main/poster/Cost_EU.svg
 logoleft_name:  https&#58;//raw.githubusercontent.com/mertcank1/posterdown/main/poster/harmony.svg
+
 output: 
   posterdown::posterdown_html:
     self_contained: false
-bibliography: packages.bib
+bibliography: ali.bib
+csl: apa
+link-citations: yes
 ---
+
+<style>
+p.caption {
+ margin-top: 0;
+ margin-bottom: 0;
+}
+</style>
+
 ```{css, echo=FALSE}
 div.logo_left{
   width: 30%;
@@ -41,25 +52,27 @@ library(rsvg)
 
 # Introduction
 
-Recently, CRISPR (Clustered Regularly Interspaced Short Palindromic Repeats) is one of the most popular applications in the field of biology. CRISPR is a system that enhances the immune system against viral diseases and infections. In the target sequence (DNA), which is separated into specific clusters, off-target and on-target positions are determined by the matching between DNA and guide RNA. The spread and occurrence of viral diseases and infections are prevented by modifying the off-target bases (nucleotides). Off-target and on-target positions are evaluated based only on two categories with CFD/MIT scores. Instead of two classes, this study focuses on off-target positions. 
+Recently, CRISPR (Clustered Regularly Interspaced Short Palindromic Repeats) is one of the most popular applications in the field of biology. CRISPR is a system that enhances the immune system against viral diseases and infections. In the target sequence (DNA), which is separated into specific clusters, off-target and on-target positions are determined by the matching between DNA and guide RNA. The spread and occurrence of viral diseases and infections are prevented by modifying the off-target bases (nucleotides). Off-target and on-target positions are evaluated based only on two categories with CFD/MIT scores. Instead of two classes, this study focuses on off-target positions[@Chen:2018;@Ishino:2018].
+
 
 ## **Objectives**
 
 1. to identify the levels of off-target by using the latent class analysis.
-
 2. According to the number of classes (Specification of Priors ), Bayesian Latent Class Analysis can be a more robust approach to predict the off-target levels.
-
 3. to specify the off-target position in the genome for CRISPR.
 
 # Methods
 
-The main objective of latent class analysis (LCA) is to categorize individuals into groups within different populations exposed to a specific disease, based on their characteristics in public health and medicine. LCA is a method used to analyze the relationship between categorical variables measured at nominal and ordinal variables. In LCA, the maximum likelihood (ML) estimation method achieves the best solution by using the Expectation-Maximization (E-M) algorithm. Conversely, as an alternative to the ML method, the Bayesian estimation method is also utilized to estimate unknown parameters in latent class models through the Markov Chain Monte Carlo (MCMC) method. 
-
 The dataset of the study was obtained from the CRISPOR database (http://crispor.tefor.net/). The analysis was conducted using a sample size of 5132, which included target sequences and gRNAs matching positions based on 23 bases. First of all, the matching of DNA and gRNA was encoded using binary (0/1) coding and multi (4x4 = 16) coding, considering that the combination of two bases in the same positions constitutes a variable. Subsequently, latent class analysis was applied separately for each encoding system. Bayesian latent class analysis was conducted, with the number of classes determined by the latent class analysis application. 
+
+The main objective of latent class analysis (LCA) is to categorize individuals into groups within different populations exposed to a specific disease, based on their characteristics in public health and medicine. LCA is a method used to analyze the relationship between categorical variables measured at nominal and ordinal variables[@Chung:2008]. In LCA, the maximum likelihood (ML) estimation method achieves the best solution by using the Expectation-Maximization (E-M) algorithm. Conversely, as an alternative to the ML method, the Bayesian estimation method is also utilized to estimate unknown parameters in latent class models through the Markov Chain Monte Carlo (MCMC) method @Qui:2022. 
+
 
 # Results
 
-In binary and multi-category datasets, Lo-Mendel-Rubin (LMR) test results were found statistically significant for each latent class (p < 0.001). According to the Bayesian Information Criteria and the Consistent Akaike Information Criteria, the latent models were well-fitted to four classes for binary category datasets and three classes for multi-category datasets. Because the entropy values were higher than 0.60, the three and four latent class models were distinctly and deterministically classified. After determining class numbers, latent class models were estimated using the Bayesian approach with binary and multi-category datasets.
+<font size="9">
+In binary and multi-category datasets, Lo-Mendel-Rubin (LMR) test results were found statistically significant for each latent class (p < 0.001). According to the Bayesian Information Criteria and the Consistent Akaike Information Criteria, the latent models were well-fitted to four classes for binary category datasets in Table \@ref(tab:mytable) and three classes for multi-category datasets in Table \@ref(tab:mytable2). </font>
+
 
 ```{r mytable, out.width='80%'}
 Class<-c(2,3,4,5,6)
@@ -88,20 +101,20 @@ colnames(CR)<-c("Class","Log-Likelihood","AIC","BIC","SSABIC","CAIC","AWE","LMR 
 
 cr<-as.data.frame(CR)
 
-knitr::kable(cr, caption = 'Latent class analysis results for observed variables with binary-categories.',align = 'c',"html",escape = T) %>% row_spec(0,bold = T)%>%
+knitr::kable(cr, caption = 'Latent class analysis results for observed variables with binary-categories.',align = 'c',"html",escape = T) %>% row_spec(0,bold = T)%>%row_spec(3,bold = T)%>%
    kable_styling(latex_options = c('striped', 'hold_position')) %>%
-  kable_classic(full_width = F, html_font = "Cambria")%>%
-  footnote(general = "AIC: Akaike Information Criterion, BIC: Bayesian Information Criterion,SSABIC:Sample Size Adjusted Bayesian Information Criterion, CAIC: Consistent Akaike
-Information Criterion, AWE:Approximate Weight of evidence Criterion, LMR Test: Lo-Mendel-Rubin Test ",general_title = "")
+  kable_classic(full_width = F, html_font = "Cambria")
 ```
 
+The entropy values were higher than 0.60, the three and four latent class models were distinctly and deterministically classified. Class probabilities were shown in Figure \@ref(fig:bin) and Figure \@ref(fig:multi). 
 
-
-```{r bin, out.width='80%', fig.align='center', fig.cap='Latent Class Probabilities(Binary-Encoding)', fig.height=5}
+```{r bin, out.width='80%', fig.align='center', fig.cap='Latent Class Probabilities(Binary-Encoding)'}
 include_graphics('https://github.com/mertcank1/posterdown/blob/main/poster/ms_2.jpg?raw=true', dpi = NA)
 ```
 
-```{r mytable2, out.width='80%'}
+
+
+```{r mytable2, out.width='50%'}
 ClassM<-c(2,3,4,5,6)
 
 ParametersM<-c(495,743,991,1239,1487)
@@ -128,9 +141,11 @@ colnames(CRM)<-c("Class","Log-Likelihood","AIC","BIC","SSABIC","CAIC","AWE","LMR
 
 crM<-as.data.frame(CRM)
 
-knitr::kable(crM, caption = 'Latent class analysis results for observed variables with Multi-categories.',align = 'c',"html",escape = T) %>% row_spec(0,bold = T)%>%
+knitr::kable(crM, caption = 'Latent class analysis results for observed variables with Multi-categories.',align = 'c',"html",escape = T) %>% row_spec(0,bold = T)%>%row_spec(2,bold = T)%>%
    kable_styling(latex_options = c('striped', 'hold_position')) %>%
-  kable_classic(full_width = F, html_font = "Cambria")
+  kable_classic(full_width = F, html_font = "Cambria")%>%
+  footnote(general = "AIC: Akaike Information Criterion, BIC: Bayesian Information Criterion,SSABIC:Sample Size Adjusted Bayesian Information Criterion, CAIC: Consistent Akaike
+Information Criterion, AWE:Approximate Weight of evidence Criterion, LMR Test: Lo-Mendel-Rubin Test ",general_title = "")
 ```
 
 
@@ -140,6 +155,7 @@ library(knitr)
 include_graphics('https://github.com/mertcank1/posterdown/blob/main/poster/ms_4.jpg?raw=true', dpi = NA)
 ```
 
+After determining class numbers, latent class models were estimated using the Bayesian approach with binary in Table \@ref(tab:mytable3) and multi-category datasets in Table \@ref(tab:mytable4).
 
 ```{r mytable3, out.width='80%'}
 Class<-c(1,2,3,4)
@@ -202,6 +218,8 @@ knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
 
 # Acknowledgement
+
+I would like to thank The Cost Action CA18208, which gave chance to attend workshops and the project about Bayesian Latent Class Models. I overcame the difficulties more easily in my research through workshops and materials.
 
 `r shiny::icon("envelope")` $\tt{alimertcankose@gmail.com}$
 
