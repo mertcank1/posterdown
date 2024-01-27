@@ -211,8 +211,7 @@ knitr::kable(blcas, caption = 'Bayesian Latent class analysis results for observ
 ```
 # Conclusion
 
-Making too many changes to the bases in the DNA sequence can lead to a higher chance of developing another disease or weakening the immune system. This study systematically tested the impact of mismatches between the target sequence and guide RNA, laying the groundwork for minimizing base changes at each position. In the next stage, machine learning and deep learning algorithms may be used to predict the locations of multi-categorical off-target levels.In the next stage, machine learning and deep learning algorithms may be used to predict the locations of multi-categorical off-target levels.
-
+Making too many changes to the bases in the DNA sequence can lead to a higher chance of developing another disease or weakening the immune system. This study systematically tested the impact of mismatches between the target sequence and guide RNA, laying the groundwork for minimizing base changes at each position. In the next stage, machine learning and deep learning algorithms may be used to predict the locations of multi-categorical off-target levels.
 ```{r, include=FALSE}
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
