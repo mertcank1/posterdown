@@ -155,7 +155,7 @@ library(knitr)
 include_graphics('https://github.com/mertcank1/posterdown/blob/main/poster/ms_4.jpg?raw=true', dpi = NA)
 ```
 
-After determining class numbers, latent class models were estimated using the Bayesian approach with binary-category in Table \@ref(tab:mytable3) and multi-category datasets in Table \@ref(tab:mytable4).
+After determining class numbers, latent class models were estimated using the Bayesian approach with binary category in Table \@ref(tab:mytable3) and multi-category datasets in Table \@ref(tab:mytable4).
 
 ```{r mytable3, out.width='80%'}
 Class<-c(1,2,3,4)
